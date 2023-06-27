@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/splash_fragment">
+    <fragment
+        android:id="@+id/splash_fragment"
+        android:name="com.example.chit_chat.Splash_fragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash" >
+        <action
+            android:id="@+id/action_splash_fragment_to_ask_fragment"
+            app:destination="@id/ask_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ask_fragment"
+        android:name="com.example.chit_chat.ask_fragment"
+        android:label="ask_fragment"
+        tools:layout="@layout/ask_fragment" >
+        <action
+            android:id="@+id/action_ask_fragment_to_signup"
+            app:destination="@id/signup" />
+        <action
+            android:id="@+id/action_ask_fragment_to_login"
+            app:destination="@id/login" />
+    </fragment>
+    <fragment
+        android:id="@+id/signup"
+        android:name="com.example.chit_chat.Signup"
+        android:label="fragment_signup"
+        tools:layout="@layout/fragment_signup" />
+    <fragment
+        android:id="@+id/login"
+        android:name="com.example.chit_chat.login"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" />
+</navigation>
