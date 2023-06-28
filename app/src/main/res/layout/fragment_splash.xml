@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/gradient_green"
+    tools:context=".Splash_fragment">
+
+   <com.airbnb.lottie.LottieAnimationView
+       android:layout_width="wrap_content"
+       android:layout_height="200dp"
+       android:layout_marginTop="100dp"
+       android:id="@+id/animation_view"
+       app:lottie_rawRes="@raw/chat2"
+       app:lottie_autoPlay="true"
+       app:lottie_loop="true"
+       />
+
+   <Button
+       android:id="@+id/button"
+       android:layout_width="232dp"
+
+       android:layout_height="64dp"
+       android:layout_gravity="center"
+       android:layout_marginTop="100dp"
+       android:background="@drawable/yellow_gradientbutton"
+       android:text="Get STarted"
+       android:textColor="@color/white"
+       android:textSize="24sp"
+       app:cornerRadius="50dp" />
+
+</FrameLayout>
