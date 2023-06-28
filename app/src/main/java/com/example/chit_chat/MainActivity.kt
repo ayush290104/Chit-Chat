@@ -2,14 +2,13 @@ package com.example.chit_chat
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+
 import com.example.chit_chat.usecase.loginsignup
 import com.example.chit_chat.utils.dialog
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import dagger.hilt.android.AndroidEntryPoint
 
+
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     lateinit var loginsignup: loginsignup
     lateinit var dialog: dialog
