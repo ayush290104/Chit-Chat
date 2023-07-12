@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_2graph"
+    app:startDestination="@id/chat">
+
+    <fragment
+        android:id="@+id/chat"
+        android:name="com.example.chit_chat.chat"
+        android:label="fragment_chat"
+        tools:layout="@layout/fragment_chat" >
+        <action
+            android:id="@+id/action_chat_to_friendmaking"
+            app:destination="@id/friendmaking" />
+        <action
+            android:id="@+id/action_chat_to_profile"
+            app:destination="@id/profile" />
+    </fragment>
+    <fragment
+        android:id="@+id/friendmaking"
+        android:name="com.example.chit_chat.friendmaking"
+        android:label="fragment_friendmaking"
+        tools:layout="@layout/fragment_friendmaking" >
+        <action
+            android:id="@+id/action_friendmaking_to_chat"
+            app:destination="@id/chat" />
+        <action
+            android:id="@+id/action_friendmaking_to_profile"
+            app:destination="@id/profile" />
+    </fragment>
+    <fragment
+        android:id="@+id/profile"
+        android:name="com.example.chit_chat.profile"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profile_to_chat"
+            app:destination="@id/chat" />
+        <action
+            android:id="@+id/action_profile_to_friendmaking"
+            app:destination="@id/friendmaking" />
+    </fragment>
+</navigation>

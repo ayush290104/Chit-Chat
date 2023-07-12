@@ -3,11 +3,13 @@ package com.example.chit_chat.usecase
 import android.app.Activity
 import android.content.ContentValues
 import android.content.Context
+import android.net.Uri
 import android.util.Log
 import android.widget.Toast
 import com.example.chit_chat.MainActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.qualifiers.ActivityContext
@@ -28,35 +30,41 @@ class loginsignup @Inject constructor(private val auth: FirebaseAuth,private val
            s= e.toString()
            Toast.makeText(context,e.toString().subSequence(59,s.length),Toast.LENGTH_SHORT).show()
        }
-//        auth.createUserWithEmailAndPassword(email, password).await()
-//            .addOnCompleteListener{ task ->
-//                if (task.isSuccessful) {
-//                       auth.currentUser?.sendEmailVerification()
-//
-//                } else {
-//                    s = task.exception.toString()
-//                    // If sign in fails, display a message to the user.
-//
-//                    Toast.makeText(context,task.exception.toString().subSequence(59,s.length),Toast.LENGTH_SHORT).show()
-//                    Log.w(ContentValues.TAG, "createUserWithEmail:failure", task.exception)
-//
-//
-//                }
             }
 
+suspend fun updateuser(string: String,uri:Uri?){
+    val profileUpdates:UserProfileChangeRequest
+    if (uri!=null){
+         profileUpdates = UserProfileChangeRequest.Builder()
+            .setDisplayName(string).setPhotoUri(uri)
+            .build()
+    }
+    else{
+         profileUpdates = UserProfileChangeRequest.Builder()
+            .setDisplayName(string)
+            .build()
+    }
 
 
-    fun signinwithemail(email:String,password:String){
-        auth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener{ task ->
-                if (task.isSuccessful) {
+    try {
+        auth.currentUser?.updateProfile(profileUpdates)?.await()
+    }catch (e:java.lang.Exception){
+        Toast.makeText(context,e.toString(),Toast.LENGTH_SHORT).show()
 
-                } else {
-                    // If sign in fails, display a message to the user.
-                    Log.w(ContentValues.TAG, "signInWithEmail:failure", task.exception)
+    }
 
-                }
-            }
+}
+
+   suspend fun signinwithemail(email:String,password:String){
+       var s = ""
+       try {
+           auth.signInWithEmailAndPassword(email, password).await()
+       }catch (e:java.lang.Exception){
+           s= e.toString()
+           Toast.makeText(context,e.toString().subSequence(59,s.length),Toast.LENGTH_SHORT).show()
+       }
+
+
     }
     fun checkuser():FirebaseUser? {
         return auth.currentUser

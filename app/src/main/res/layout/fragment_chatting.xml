@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="#87CEFA"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="60dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/cardsend"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/gradient_green"
+            android:backgroundTint="#87CEFA"
+            app:cardCornerRadius="2dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="10dp">
+
+                <ImageView
+                    android:id="@+id/friendimage"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_weight="1"
+                    android:background="#87CEFA"
+
+                    android:backgroundTint="#87CEFA"
+                    android:scaleType="fitXY"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.452"
+                    app:srcCompat="@drawable/img" />
+
+                <TextView
+                    android:id="@+id/friendname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="36dp"
+                    android:layout_marginTop="16dp"
+                    android:text="Ayush Kandpal"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
+                    app:layout_constraintStart_toEndOf="@+id/friendimage"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/friendemail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="80dp"
+                    android:layout_marginTop="52dp"
+                    android:text="ayushkandpal2904@gmail.com"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/chatrecycleview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardsend"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginBottom="8dp"
+        android:elevation="20dp"
+        android:backgroundTint="#87CEFA"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/sendbutton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+        <EditText
+            android:id="@+id/textsend"
+            android:layout_width="match_parent"
+
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:background="#87CEFA"
+            android:ems="10"
+
+            android:hint="say hello"
+            android:inputType="textPersonName"
+            android:textColor="@color/white"
+
+            android:textColorHint="@color/white" />
+    </androidx.cardview.widget.CardView>
+
+    <ImageButton
+        android:id="@+id/sendbutton"
+        android:layout_width="46dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="3dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginRight="7dp"
+        android:background="#87CEFA"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:srcCompat="@drawable/baseline_send_24" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,10 +20,10 @@ class ask_fragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = AskFragmentBinding.inflate(inflater,container,false)
-    binding.button2.setOnClickListener {
+    binding.newuser.setOnClickListener {
         findNavController().navigate(R.id.action_ask_fragment_to_signup)
     }
-    binding.button3.setOnClickListener{
+    binding.Alreadyuser.setOnClickListener{
         findNavController().navigate(R.id.action_ask_fragment_to_login)
     }
 

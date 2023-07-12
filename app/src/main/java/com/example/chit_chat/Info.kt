@@ -1,59 +1,133 @@
 package com.example.chit_chat
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [Info.newInstance] factory method to
- * create an instance of this fragment.
- */
+import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.navigation.fragment.findNavController
+import com.example.chit_chat.databinding.FragmentInfoBinding
+import com.example.chit_chat.usecase.dataFirebase
+import com.example.chit_chat.usecase.loginsignup
+import com.example.chit_chat.utils.dialog
+import com.github.dhaval2404.imagepicker.ImagePicker
+import com.google.firebase.database.FirebaseDatabase
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.*
+import java.util.Calendar
+import javax.inject.Inject
+@AndroidEntryPoint
 class Info : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
-
+    lateinit var binding: FragmentInfoBinding
+    @Inject
+    lateinit var dialog: dialog
+    var uri:Uri? = null
+@Inject
+lateinit var loginsignup: loginsignup
+@Inject
+lateinit var dataFirebase: dataFirebase
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_info, container, false)
-    }
+        binding = FragmentInfoBinding.inflate(inflater,container,false)
+        binding.imageViewcalendar.setOnClickListener{
+            dialog.showcalendar(binding.selectdob)
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment Info.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            Info().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+        }
+        binding.imageprofile.setOnClickListener{
+
+
+                CoroutineScope(Dispatchers.Main).launch {
+
+                    ImagePicker.with(this@Info)
+                        .crop()
+                        .compress(524)         //Final image size will be less than 1 MB(Optional)
+                        //Final image resolution will be less than 1080 x 1080(Optional)
+                        .createIntent { intent ->
+                            startForProfileImageResult.launch(intent)
+                        }
                 }
+
+
+
+
+        }
+        binding.continu.setOnClickListener {
+
+            if (binding.editname.text.isBlank()&& binding.selectdob.text.toString().contains("Select")){
+                Toast.makeText(activity,"Field Cant be empty",Toast.LENGTH_SHORT).show()
             }
+
+            else {
+                val s = binding.selectdob.text.toString().subSequence(binding.selectdob.text.toString().length-4,binding.selectdob.text.toString().length).toString()
+               val a = s.toInt()
+                if (a>2004){
+                    Toast.makeText(activity,"You are too young",Toast.LENGTH_SHORT).show()
+                }
+else{
+    Toast.makeText(activity,binding.selectdob.text.toString().subSequence(binding.selectdob.text.toString().length-4,binding.selectdob.text.toString().length).toString(),Toast.LENGTH_SHORT).show()
+                    CoroutineScope(Dispatchers.Main).launch {
+
+                        val dialog = dialog.showPleaseWaitDialog()
+                        dialog.show()
+                        val job = GlobalScope.launch {
+                            uri?.let { it1 ->
+                                loginsignup.updateuser(binding.editname.text.toString(),
+                                    it1
+                                )
+                                dataFirebase.adduri(it1)
+
+                            }
+                            dataFirebase.addname(binding.editname.text.toString())
+
+                        }
+                        job.join()
+                        dialog.dismiss()
+                        delay(300)
+                        findNavController().navigate(R.id.action_info2_to_login)
+
+
+
+
+                    }
+}
+
+
+
+            }
+        }
+
+
+
+
+
+        return binding.root
     }
+   private val startForProfileImageResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            val resultCode = result.resultCode
+            val data = result.data
+
+            if (resultCode == Activity.RESULT_OK) {
+                //Image Uri will not be null for RESULT_OK
+                val fileUri = data?.data!!
+                uri = data.data
+                binding.imageprofile.setImageURI(fileUri)
+                binding.textViewpick.visibility = View.GONE
+            } else if (resultCode == ImagePicker.RESULT_ERROR) {
+                Toast.makeText(activity, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(activity, "Task Cancelled", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+
 }

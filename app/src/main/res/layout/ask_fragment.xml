@@ -20,7 +20,7 @@
         app:lottie_rawRes="@raw/chat2" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/newuser"
         android:layout_width="wrap_content"
         android:layout_height="58dp"
         android:background="@drawable/yellow_gradientbutton"
@@ -35,7 +35,7 @@
         app:layout_constraintVertical_bias="0.228" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/Alreadyuser"
         android:layout_width="wrap_content"
         android:layout_height="58dp"
         android:background="@drawable/yellow_gradientbutton"
@@ -51,7 +51,7 @@
         app:layout_constraintVertical_bias="0.543" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/Letschat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="112dp"

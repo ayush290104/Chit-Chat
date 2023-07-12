@@ -12,6 +12,12 @@
         <action
             android:id="@+id/action_splash_fragment_to_ask_fragment"
             app:destination="@id/ask_fragment" />
+        <action
+            android:id="@+id/action_splash_fragment_to_login"
+            app:destination="@id/login" />
+        <action
+            android:id="@+id/action_splash_fragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
     </fragment>
     <fragment
         android:id="@+id/ask_fragment"
@@ -31,17 +37,39 @@
         android:label="fragment_signup"
         tools:layout="@layout/fragment_signup" >
         <action
-            android:id="@+id/action_signup_to_login"
-            app:destination="@id/login" />
+            android:id="@+id/action_signup_to_info2"
+            app:destination="@id/info2" />
     </fragment>
     <fragment
         android:id="@+id/login"
         android:name="com.example.chit_chat.login"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" />
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_login_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
     <fragment
         android:id="@+id/info2"
         android:name="com.example.chit_chat.Info"
         android:label="fragment_info"
-        tools:layout="@layout/fragment_info" />
+        tools:layout="@layout/fragment_info" >
+        <action
+            android:id="@+id/action_info2_to_login"
+            app:destination="@id/login" />
+    </fragment>
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.example.chit_chat.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_chatting2"
+            app:destination="@id/chatting2" />
+    </fragment>
+    <fragment
+        android:id="@+id/chatting2"
+        android:name="com.example.chit_chat.Chatting"
+        android:label="fragment_chatting"
+        tools:layout="@layout/fragment_chatting" />
 </navigation>

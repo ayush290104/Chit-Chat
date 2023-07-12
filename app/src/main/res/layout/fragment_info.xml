@@ -1,14 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Info">
+    android:background="@color/white"
+    tools:context=".Signup">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/Letschat2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:fontFamily="cursive"
 
-</FrameLayout>
+        android:padding="10dp"
+        android:text="Lets Chat it Out"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animation_view"
+        android:layout_width="350dp"
+        android:layout_height="212dp"
+
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="64dp"
+        android:foregroundGravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/chat2" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewinfo"
+        android:layout_width="200dp"
+          android:backgroundTint="#D3D3D3"
+        android:layout_height="140dp"
+        android:layout_marginTop="4dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/animation_view">
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageprofile"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:layout_weight="1"
+                android:src="@drawable/img" />
+
+            <TextView
+                android:id="@+id/textViewpick"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:text="Select Your Profile Picture"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/black" />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView2info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="40dp"
+        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView3info">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/selectdob"
+                android:layout_width="303dp"
+                android:layout_height="49dp"
+
+                android:background="@color/white"
+                android:ems="10"
+                android:text="Select your Date of Birth"
+                android:inputType="textPersonName"
+
+                android:padding="10dp"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/imageViewcalendar"
+                android:layout_width="35dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:src="@drawable/baseline_calendar_month_24" />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView3info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+
+        app:cardCornerRadius="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardViewinfo">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/editname"
+                android:layout_width="338dp"
+                android:layout_height="49dp"
+
+                android:background="@color/white"
+                android:ems="10"
+                android:hint="Please Tell us Your Name"
+                android:inputType="textPersonName"
+                android:padding="10dp" />
+
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/continu"
+        android:layout_width="205dp"
+        android:layout_height="49dp"
+        android:text="Continue"
+        android:padding="5dp"
+        android:textSize="22sp"
+        android:textColor="@color/white"
+        android:background="@drawable/yellow_gradientbutton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView2info" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

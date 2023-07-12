@@ -5,55 +5,74 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.navigation.fragment.findNavController
+import com.example.chit_chat.databinding.FragmentLoginBinding
+import com.example.chit_chat.usecase.loginsignup
+import com.example.chit_chat.utils.Passwordvisible
+import com.example.chit_chat.utils.dialog
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import javax.inject.Inject
+import kotlin.math.log
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [login.newInstance] factory method to
- * create an instance of this fragment.
- */
+@AndroidEntryPoint
 class login : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
-
+   lateinit var binding:FragmentLoginBinding
+   @Inject
+    lateinit var passwordvisible: Passwordvisible
+    @Inject
+    lateinit var loginsignup: loginsignup
+    @Inject
+    lateinit var dialog: dialog
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        var isvisible = false
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false)
+        binding = FragmentLoginBinding.inflate(inflater,container,false)
+        binding.visible.setOnClickListener{
+            passwordvisible.togglevisivblity(imageView = binding.visible,binding.passwordlogin,isvisible)
+            isvisible = !isvisible
+        }
+binding.login.setOnClickListener {
+    val d = dialog.showPleaseWaitDialog()
+    if(!binding.EmailAddresslogin.text.toString().contains("@")){
+        Toast.makeText(activity,"Enter valid email address", Toast.LENGTH_SHORT).show()
+    }
+    else{
+        CoroutineScope(Dispatchers.Main).launch {
+            d.show()
+  val job = CoroutineScope(Dispatchers.Main).launch {
+      loginsignup.signinwithemail(binding.EmailAddresslogin.text.toString(),binding.passwordlogin.text.toString())
+  }
+job.join()
+  d.dismiss()
+  if (loginsignup.checkuser()!=null){
+      if (loginsignup.checkuser()!!.isEmailVerified){
+          findNavController().navigate(R.id.action_login_to_mainFragment)
+      }
+      else{
+          Toast.makeText(activity,"Please Verify your email and try again",Toast.LENGTH_SHORT).show()
+      }
+  }
+
+        }
+    }
+}
+binding.getverification.setOnClickListener {
+    if (loginsignup.checkuser()!=null){
+        loginsignup.checkuser()!!.sendEmailVerification()
+    }
+}
+
+
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment login.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            login().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
+
 }

@@ -68,6 +68,11 @@ class Signup : Fragment() {
              job.await()
               dialog.dismiss()
             delay(300)
+              if(loginsignup.checkuser()!=null){
+                  findNavController().navigate(R.id.action_signup_to_info2)
+              }
+
+
 
           }
 
